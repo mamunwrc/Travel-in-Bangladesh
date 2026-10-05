@@ -1,0 +1,163 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — "Travel in Bangladesh"
+ * Direction: Frosted glass light (jade / mint / gold on cream).
+ * Tokens are carried from the chosen direction; semantic shadcn
+ * variables map onto the same palette.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Direction palette */
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-jade: var(--jade);
+  --color-mint: var(--mint);
+  --color-gold: var(--gold);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+
+  --ink: #14201a;
+  --ink-soft: #43564c;
+  --jade: #0f7a5f;
+  --mint: #12a97f;
+  --gold: #c99a2e;
+  --cream: #f2f8f4;
+  --sand: #eef4ef;
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--jade);
+  --primary-foreground: #ffffff;
+  --secondary: var(--sand);
+  --secondary-foreground: var(--ink);
+  --muted: var(--sand);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--mint);
+  --accent-foreground: #ffffff;
+  --destructive: #b3402a;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.7);
+  --input: rgba(20, 32, 26, 0.12);
+  --ring: var(--jade);
+}
+
+.dark {
+  --background: #0e1613;
+  --foreground: #f2f8f4;
+  --card: #16221d;
+  --card-foreground: #f2f8f4;
+  --popover: #16221d;
+  --popover-foreground: #f2f8f4;
+  --primary: #14b98a;
+  --primary-foreground: #0e1613;
+  --secondary: #1c2b25;
+  --secondary-foreground: #f2f8f4;
+  --muted: #1c2b25;
+  --muted-foreground: #9db4a9;
+  --accent: #1c2b25;
+  --accent-foreground: #f2f8f4;
+  --destructive: #e06a52;
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #14b98a;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+/* Ambient motion from the chosen direction */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-26px);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(22px, -18px);
+  }
+}
+
+@utility animate-floaty {
+  animation: floaty 13s ease-in-out infinite;
+}
+
+@utility animate-drift {
+  animation: drift 17s ease-in-out infinite;
+}
+
+@utility animate-drift-slow {
+  animation: drift 21s ease-in-out infinite;
+}
+
+@utility glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(24px);
+}
