@@ -11,8 +11,9 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Build for Node.js server (not Cloudflare)
-RUN npm run build -- --preset=node-server
+# Build with Node.js preset using environment variable
+ENV NITRO_PRESET=node-server
+RUN npm run build
 
 ENV NODE_ENV=production
 ENV PORT=3000
