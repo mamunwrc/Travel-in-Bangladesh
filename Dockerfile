@@ -1,30 +1,24 @@
-# ----- Stage 1: Build -----
-FROM node:20-alpine AS build
-
-WORKDIR /app
-
-COPY package*.json ./
-# Use npm ci against npm install
-RUN npm install
-
-COPY . .
-
-RUN npm run build
-
-# ----- Stage 2: Run -----
 FROM node:20-alpine
 
 WORKDIR /app
 
+# Copy package files
 COPY package*.json ./
-RUN npm install --production
 
-# Built output copy 
-COPY --from=build /app/.output ./.output
+# Install all dependencies (including devDependencies for build)
+RUN npm install
 
-ENV PORT=3000
+# Copy source code
+COPY . .
+
+# Build the Nuxt app
+RUN npm run build
+
+# Set environment variables
 ENV NODE_ENV=production
+ENV PORT=3000
 
 EXPOSE 3000
 
+# Start the production server
 CMD ["node", ".output/server/index.mjs"]
