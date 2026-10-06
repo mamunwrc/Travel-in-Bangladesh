@@ -5,20 +5,19 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install all dependencies (including devDependencies for build)
+# Install dependencies
 RUN npm install
 
 # Copy source code
 COPY . .
 
-# Build the Nuxt app
-RUN npm run build
+# Build for Node.js server (not Cloudflare)
+RUN npm run build -- --preset=node-server
 
-# Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
 
 EXPOSE 3000
 
-# Start the production server
+# Start the Node.js server
 CMD ["node", ".output/server/index.mjs"]
