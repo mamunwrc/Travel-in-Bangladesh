@@ -4,8 +4,8 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
-
-RUN npm ci
+# Use npm ci against npm install
+RUN npm install
 
 COPY . .
 
@@ -16,11 +16,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Only production dependencies
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install --production
 
-# Built output copy
+# Built output copy 
 COPY --from=build /app/.output ./.output
 
 ENV PORT=3000
