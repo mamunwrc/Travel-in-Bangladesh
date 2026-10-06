@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: travel-bd
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travel-in-bd
+  namespace: travel-bd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: travel-in-bd
+  template:
+    metadata:
+      labels:
+        app: travel-in-bd
+    spec:
+      containers:
+      - name: travel-in-bd
+        image: mamunacr.azurecr.io/travel-in-bd:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: travel-in-bd-service
+  namespace: travel-bd
+spec:
+  type: LoadBalancer
+  selector:
+    app: travel-in-bd
+  ports:
+  - port: 80
+    targetPort: 3000
